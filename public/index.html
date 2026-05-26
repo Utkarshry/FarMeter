@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarMeter — Smart Soil. Better Harvest. Zero Waste.</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --light-bg: #f8f9f7;
+    --border: #e0e2d8;
+    --text-primary: #1a1c0e;
+    --text-secondary: #5a5c4a;
+    --text-muted: #8a8c7a;
+    --green: #2E7D32;
+    --green-light: #4caf50;
+    --green-dark: #1b5e20;
+    --accent: #d4a574;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--light-bg);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--green);
+  }
+
+  .cta-btn {
+    background: var(--green);
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .cta-btn:hover {
+    background: var(--green-dark);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: center;
+    padding: 4rem 3rem;
+    background: linear-gradient(135deg, var(--light-bg) 0%, rgba(46, 125, 50, 0.05) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    max-width: 700px;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .hero-title .highlight {
+    color: var(--green);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .meta-item {
+    border-left: 2px solid var(--green);
+    padding-left: 1rem;
+  }
+
+  .meta-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .meta-value {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn {
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--green-dark);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    background: white;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .hero-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .focus-chip {
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .focus-chip.active {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+  }
+
+  .section-title em {
+    color: var(--green);
+    font-style: normal;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  .problem-section {
+    background: white;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-banner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 2rem 0 3rem 0;
+  }
+
+  .stat-item {
+    background: white;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--green);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .problem-card {
+    background: white;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .problem-card:hover {
+    background: var(--light-bg);
+  }
+
+  .problem-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.5rem;
+    color: rgba(46, 125, 50, 0.08);
+    line-height: 1;
+  }
+
+  .problem-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .problem-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .problem-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* ── INNOVATION SECTION ── */
+  .innovation-section {
+    background: var(--light-bg);
+  }
+
+  .innovation-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .innovation-diagram {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .innovation-diagram img {
+    width: 100%;
+    height: auto;
+  }
+
+  .innovation-points {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .innovation-point {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 1.5rem;
+  }
+
+  .ip-num {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--green);
+    flex-shrink: 0;
+  }
+
+  .ip-body h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .ip-body p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .ip-body .highlight {
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ── APP SECTION ── */
+  .app-section {
+    background: white;
+    border-top: 1px solid var(--border);
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .app-mockup {
+    background: var(--light-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-features {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .feature-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .feature-body h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .feature-body p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── MARKETPLACE SECTION ── */
+  .marketplace-section {
+    background: var(--light-bg);
+  }
+
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .market-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+
+  .market-card:hover {
+    border-color: var(--green);
+  }
+
+  .market-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .market-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .market-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .market-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .footer h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .footer p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-btn {
+    background: var(--green);
+    color: white;
+    padding: 0.8rem 2.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .footer-btn:hover {
+    background: var(--green-dark);
+  }
+
+  .footer-credits {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in {
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .header { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; font-size: 0.85rem; }
+    .hero { padding: 2rem 1.5rem; }
+    section { padding: 3rem 1.5rem; }
+    .hero-meta, .stat-banner, .problem-grid, .market-grid, .innovation-layout, .app-layout {
+      grid-template-columns: 1fr;
+    }
+    .hero-buttons { flex-direction: column; }
+    .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">FarMeter</div>
+  <div class="nav-links">
+    <a href="#technology">Technology</a>
+    <a href="#app">The App</a>
+    <a href="#marketplace">Marketplace</a>
+    <a href="#research">Research</a>
+    <a href="#" class="cta-btn">Subscribe</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tag fade-in">Precision Farming · Circular Bioeconomy · Agri-Tech</div>
+    <h1 class="hero-title fade-in">Smart Soil.<br><span class="highlight">Better Harvest.</span><br>Zero Waste.</h1>
+    <p class="hero-subtitle fade-in">An AI-driven hydro-bio-loop system that transforms agricultural waste into valuable biological commodities while restoring soil health and reducing carbon footprint.</p>
+    
+    <div class="hero-meta fade-in">
+      <div class="meta-item">
+        <span class="meta-label">Innovation</span>
+        <span class="meta-value">BSFL + Dark Fermentation + NBS Train</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Market Size</span>
+        <span class="meta-value">$8B Global Insect Protein by 2030</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Impact</span>
+        <span class="meta-value">70% Waste Reduction, Net Carbon Negative</span>
+      </div>
+    </div>
+
+    <div class="hero-buttons fade-in">
+      <a href="#" class="btn btn-primary">Get Started</a>
+      <a href="#" class="btn btn-secondary">Learn More</a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <span class="focus-chip active">Precision Farming</span>
+    <span class="focus-chip active">Circular Bioeconomy</span>
+    <span class="focus-chip">Climate Action</span>
+    <span class="focus-chip">Soil Health</span>
+    <span class="focus-chip">AI-Driven</span>
+  </div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section class="problem-section" id="problem">
+  <div class="section-label">01 / Problem</div>
+  <h2 class="section-title">Agricultural Waste Is a <em>Buried Crisis</em></h2>
+
+  <div class="stat-banner">
+    <div class="stat-item">
+      <span class="stat-num">1.3B</span>
+      <span class="stat-desc">Tonnes of agricultural waste annually</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">28%</span>
+      <span class="stat-desc">Of global emissions from agriculture</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">$2.1T</span>
+      <span class="stat-desc">Economic loss from soil degradation yearly</span>
+    </div>
+  </div>
+
+  <div class="problem-grid">
+    <div class="problem-card" data-num="01">
+      <span class="problem-icon">🌾</span>
+      <h3>Crop Residue Burning</h3>
+      <p>Millions of tonnes burned annually, releasing methane and destroying soil structure. No scalable, decentralized alternative exists for farmers at the field level.</p>
+    </div>
+    <div class="problem-card" data-num="02">
+      <span class="problem-icon">🔄</span>
+      <h3>Linear Waste Stream</h3>
+      <p>Current agricultural systems follow take-make-dispose models, depleting soil nutrients and generating methane from decomposition. Nutrients are lost instead of recycled.</p>
+    </div>
+    <div class="problem-card" data-num="03">
+      <span class="problem-icon">🌱</span>
+      <h3>Soil Degradation</h3>
+      <p>Over 40% of agricultural land is degraded due to poor waste management practices. Lost organic matter reduces water retention and microbial biodiversity.</p>
+    </div>
+    <div class="problem-card" data-num="04">
+      <span class="problem-icon">💨</span>
+      <h3>Carbon Emissions</h3>
+      <p>Agriculture contributes significantly to climate change. Traditional composting produces high methane, while burning releases CO2. The cycle continues unbroken.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INNOVATION SECTION -->
+<section class="innovation-section" id="technology">
+  <div class="section-label">02 / Innovation</div>
+  <h2 class="section-title">The <em>Hydro-Bio-Loop</em> System</h2>
+
+  <div class="innovation-layout">
+    <div class="innovation-diagram">
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">Phase 1: BSFL Bioreactors → Phase 2: Dark Fermentation → Phase 3: NBS Train</p>
+      <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">Integrated circular system diagram</p>
+    </div>
+
+    <div class="innovation-points">
+      <div class="innovation-point">
+        <div class="ip-num">1</div>
+        <div class="ip-body">
+          <h3>BSFL Bioreactors</h3>
+          <p>Black soldier fly larvae convert organic waste into <span class="highlight">high-protein insect biomass</span> and nutrient-rich frass for soil amendment.</p>
+        </div>
+      </div>
+      <div class="innovation-point">
+        <div class="ip-num">2</div>
+        <div class="ip-body">
+          <h3>Dark Fermentation</h3>
+          <p>Residual biomass undergoes anaerobic fermentation, producing <span class="highlight">biogas for energy</span> while capturing carbon in a controlled environment.</p>
+        </div>
+      </div>
+      <div class="innovation-point">
+        <div class="ip-num">3</div>
+        <div class="ip-body">
+          <h3>Nature-Based Solutions Train</h3>
+          <p>Final digestate powers constructed wetlands that <span class="highlight">polish water, restore biodiversity</span>, and create landscape-scale habitat corridors.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP SECTION -->
+<section class="app-section" id="app">
+  <div class="section-label">03 / Platform</div>
+  <h2 class="section-title">FarMeter <em>App</em></h2>
+
+  <div class="app-layout">
+    <div class="app-mockup">
+      📱 FarMeter App Preview<br>(IoT Dashboard, Hindi/English UI, Real-time Carbon Tracking)
+    </div>
+
+    <div class="app-features">
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <div class="feature-body">
+          <h4>IoT Integration</h4>
+          <p>Real-time sensors monitor soil moisture, temperature, and bioreactor conditions. Automatic alerts optimize system performance.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🤖</span>
+        <div class="feature-body">
+          <h4>AI Action Cards</h4>
+          <p>Machine learning recommends waste processing timing, irrigation schedules, and harvest windows for maximum yield and carbon sequestration.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🌍</span>
+        <div class="feature-body">
+          <h4>Carbon Traceability</h4>
+          <p>Blockchain-verified carbon credits. Track environmental impact from farm to market with transparent, auditable records.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETPLACE SECTION -->
+<section class="marketplace-section" id="marketplace">
+  <div class="section-label">04 / Ecosystem</div>
+  <h2 class="section-title">Three-Sided <em>Marketplace</em></h2>
+
+  <div class="market-grid">
+    <div class="market-card">
+      <span class="market-icon">🌾</span>
+      <h3>Crop Farmers</h3>
+      <p>Convert agricultural waste into revenue streams. Receive soil amendments and carbon credits while reducing burning.</p>
+      <span class="market-value">70% Waste Reduction</span>
+    </div>
+    <div class="market-card">
+      <span class="market-icon">🍄</span>
+      <h3>Cultivators & Processors</h3>
+      <p>Access high-protein insect biomass and biogas energy. Create value-added products in the circular economy.</p>
+      <span class="market-value">$5K-50K/Month</span>
+    </div>
+    <div class="market-card">
+      <span class="market-icon">🏢</span>
+      <h3>Institutions & Enterprises</h3>
+      <p>Procure sustainable feedstock and carbon offsets. Meet ESG targets with auditable climate impact.</p>
+      <span class="market-value">Carbon Neutral by 2030</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="footer">
+  <h2>Join the Hydro-Bio-Loop Revolution</h2>
+  <p>Be part of the transformation towards regenerative agriculture. Start your zero-waste journey today.</p>
+  <a href="#" class="footer-btn">Get Started Now</a>
+  <div class="footer-credits">
+    <p>FarMeter · Precision Farming for a Circular Future<br>Built for sustainable agriculture professionals and climate-conscious enterprises.</p>
+  </div>
+</section>
+
+</body>
+</html>
